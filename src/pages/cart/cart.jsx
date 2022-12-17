@@ -5,10 +5,16 @@ import { ShopContext } from '../../context/shop-context';
 import { useContext } from 'react';
 import CartItem from './cart-item';
 
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Cart() {
-  const {addToCart, cartItems} = useContext(ShopContext);
-  
+  const {addToCart, cartItems, getTotalCartAmount, checkout} = useContext(ShopContext);
+  const totalAmount = getTotalCartAmount();
+  const checkoutAmount = checkout();
+
+  const navigate = useNavigate();
+    
   return (
     <div className='cart'>
       <div>
@@ -23,6 +29,22 @@ export default function Cart() {
           }
         )}
       </div>
+      {totalAmount > 0 ? (
+         <div className="checkout">
+         <p> Subtotal : ${totalAmount}</p>
+         <button onClick={() => navigate("/")}> Continue Shopping</button>
+         <button 
+          // onClick={()=>{
+          //   checkout();
+          //   navigate("/checkout");
+          //   }}
+            >
+               Checkout 
+          </button>
+       </div>
+      ) : (
+        <h1> Your Cart is Empty </h1>
+      )}
     </div>
   )
 }
