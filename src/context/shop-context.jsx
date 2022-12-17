@@ -45,11 +45,10 @@ export default function ShopContextProvider(props) {
     const checkout = () => {
       setCartItems(getDefaultCart());
     }
-
+   
     const contextValue = {cartItems, addToCart, removeFromCart, updateCartItemCount, getTotalCartAmount, checkout}
 
-  
-
+     
   return (
     <ShopContext.Provider value={contextValue}>
       {props.children}

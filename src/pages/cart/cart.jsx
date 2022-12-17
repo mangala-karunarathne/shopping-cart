@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Cart() {
   const {addToCart, cartItems, getTotalCartAmount, checkout} = useContext(ShopContext);
   const totalAmount = getTotalCartAmount();
-  const checkoutAmount = checkout();
+
 
   const navigate = useNavigate();
     
@@ -24,7 +24,7 @@ export default function Cart() {
         {PRODUCTS.map((product)=>{
           if (cartItems[product.id] !==0) {
             console.log(cartItems[product.id])
-            return <CartItem data={product}/>
+            return <CartItem data={product}/>;
           }
           }
         )}
@@ -33,14 +33,11 @@ export default function Cart() {
          <div className="checkout">
          <p> Subtotal : ${totalAmount}</p>
          <button onClick={() => navigate("/")}> Continue Shopping</button>
-         <button 
-          // onClick={()=>{
-          //   checkout();
-          //   navigate("/checkout");
-          //   }}
-            >
-               Checkout 
-          </button>
+         <button onClick={() =>{ 
+          checkout();
+          navigate("/cart");
+          }}>
+            Checkout</button>
        </div>
       ) : (
         <h1> Your Cart is Empty </h1>
